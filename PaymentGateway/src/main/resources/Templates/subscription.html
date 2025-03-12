@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Plans</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <style>
+        /* Dark mode theme */
+        body {
+          font-family: "Arial", sans-serif;
+          background: #121212;
+          color: white;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Container */
+        .container {
+          margin-top: 50px;
+        }
+        h1 {
+          font-size: 2.5em;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          text-align: center;
+          background: linear-gradient(90deg, #ffcc00, #ff4d4d, #007bff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 0 0 10px rgba(255, 204, 0, 0.6),
+            0 0 20px rgba(255, 77, 77, 0.5), 0 0 30px rgba(0, 123, 255, 0.4);
+          animation: glow 2s infinite alternate;
+        }
+
+        /* Glowing Animation */
+        @keyframes glow {
+          0% {
+            text-shadow: 0 0 5px rgba(0, 255, 102, 0.6),
+              0 0 15px rgba(255, 77, 77, 0.5), 0 0 25px rgba(0, 123, 255, 0.4);
+          }
+          100% {
+            text-shadow: 0 0 10px rgba(60, 0, 255, 0.8),
+              0 0 20px rgba(255, 77, 77, 0.7), 0 0 30px rgba(0, 123, 255, 0.6);
+          }
+        }
+
+        /* Plans Section */
+        .plans {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          flex-wrap: wrap;
+          padding: 20px;
+        }
+
+        /* Individual Plan Box */
+        .plan {
+          background: #1e1e1e;
+          padding: 25px;
+          width: 270px;
+          border-radius: 12px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
+          border: 2px solid transparent;
+        }
+
+        .plan:hover {
+          transform: scale(1.05);
+          box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+          border: 2px solid #ffffff30;
+        }
+
+        /* Popular Plan Glow Effect */
+        .popular {
+          border: 2px solid #ff9800;
+          box-shadow: 0 0 15px rgba(255, 152, 0, 0.6);
+        }
+
+        .popular:hover {
+          box-shadow: 0 0 25px rgba(255, 152, 0, 0.9);
+        }
+
+        /* Headings */
+        h2 {
+          color: #ffcc00;
+          font-size: 1.5em;
+        }
+
+        /* Price */
+        p {
+          font-size: 1.2em;
+          color: #ffffffcc;
+        }
+
+        /* Feature List */
+        ul {
+          list-style: none;
+          padding: 0;
+        }
+
+        li {
+          margin: 8px 0;
+          font-size: 1em;
+        }
+
+        /* Button Styling */
+        button {
+          background: #007bff;
+          color: white;
+          padding: 12px 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 8px;
+          margin-top: 15px;
+          font-size: 1em;
+          font-weight: bold;
+          transition: 0.3s;
+        }
+
+        button:hover {
+          background: #0056b3;
+          transform: scale(1.1);
+          box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Choose Your Subscription Plan</h1>
+    <div class="plans">
+        <div class="plan" onclick="selectPlan('Basic')">
+            <h2>Basic</h2>
+            <p>$9.99 / month</p>
+            <ul>
+                <li>✔ 5 Projects</li>
+                <li>✔ Basic Support</li>
+                <li>✔ Limited Features</li>
+            </ul>
+            <button onclick="window.location.href='orders.html'">
+                Select Plan
+            </button>
+        </div>
+
+        <div class="plan popular" onclick="selectPlan('Pro')">
+            <h2>Pro</h2>
+            <p>$19.99 / month</p>
+            <ul>
+                <li>✔ 50 Projects</li>
+                <li>✔ Priority Support</li>
+                <li>✔ All Features</li>
+            </ul>
+            <button>Select Plan</button>
+        </div>
+
+        <div class="plan" onclick="selectPlan('Enterprise')">
+            <h2>Enterprise</h2>
+            <p>$49.99 / month</p>
+            <ul>
+                <li>✔ Unlimited Projects</li>
+                <li>✔ 24/7 Support</li>
+                <li>✔ Custom Features</li>
+            </ul>
+            <button>Select Plan</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
