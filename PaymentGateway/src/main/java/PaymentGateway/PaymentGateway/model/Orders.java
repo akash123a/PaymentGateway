@@ -14,6 +14,33 @@ public class Orders {
     private Integer amount;
     private String orderStatus;
     private String razorpayOrderId;
+
+    // ✅ New fields (Optional)
+    private String paymentId; // Store Razorpay Payment ID from webhook
+    private String webhookStatus; // Store webhook event status
+
+    // Getters and Setters
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getWebhookStatus() {
+        return webhookStatus;
+    }
+
+    public void setWebhookStatus(String webhookStatus) {
+        this.webhookStatus = webhookStatus;
+    }
+
+
+
+
+
+
     public Integer getOrderId() {
         return orderId;
     }

@@ -25,6 +25,11 @@ public class OrdersController {
         return "orders";
     }
 
+    @GetMapping("/Check")
+    public String Checkorder() {
+        return "return Check";
+    }
+
     @PostMapping(value = "/createOrder", produces = "application/json")
     @ResponseBody
     public ResponseEntity<Orders> createOrder(@RequestBody Orders orders) throws RazorpayException{
@@ -37,5 +42,16 @@ public class OrdersController {
         orderService.updateStatus(response);
         return "success";
 
+    }
+
+    // ✅ **Webhook Endpoint (Triggered by Razorpay)**
+    @PostMapping("/webhook/razorpay")
+    public ResponseEntity<String> razorpayWebhook(@RequestBody Map<String, Object> payload) {
+        System.out.println("Webhook Received: " + payload);
+
+        // Handle payment update logic
+        orderService.handleWebhook(payload);
+
+        return ResponseEntity.ok("Webhook received successfully");
     }
 }
