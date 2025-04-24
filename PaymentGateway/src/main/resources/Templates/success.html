@@ -1,3 +1,241 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Payment Successful | Order Confirmation</title>-->
+<!--    <style>-->
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            background: #f0f2f5;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            min-height: 100vh;-->
+<!--            padding: 1rem;-->
+<!--        }-->
+
+<!--        .success-container {-->
+<!--            background: white;-->
+<!--            padding: 3rem;-->
+<!--            border-radius: 16px;-->
+<!--            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);-->
+<!--            text-align: center;-->
+<!--            max-width: 500px;-->
+<!--            width: 100%;-->
+<!--            position: relative;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .success-container::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            right: 0;-->
+<!--            height: 4px;-->
+<!--            background: #4CAF50;-->
+<!--        }-->
+
+<!--        .checkmark-circle {-->
+<!--            width: 80px;-->
+<!--            height: 80px;-->
+<!--            background: #4CAF50;-->
+<!--            border-radius: 50%;-->
+<!--            margin: 0 auto 1.5rem;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            animation: scaleUp 0.6s ease;-->
+<!--        }-->
+
+<!--        .checkmark {-->
+<!--            width: 40px;-->
+<!--            height: 40px;-->
+<!--            stroke-width: 2;-->
+<!--            stroke: #ffffff;-->
+<!--            fill: none;-->
+<!--            stroke-linecap: round;-->
+<!--            stroke-linejoin: round;-->
+<!--            animation: draw 0.6s ease forwards;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            color: #1a237e;-->
+<!--            margin-bottom: 0.5rem;-->
+<!--            font-size: 2rem;-->
+<!--        }-->
+
+<!--        .subheading {-->
+<!--            color: #666;-->
+<!--            margin-bottom: 2rem;-->
+<!--            font-size: 1.1rem;-->
+<!--        }-->
+
+<!--        .order-details {-->
+<!--            background: #f8f9fa;-->
+<!--            padding: 1.5rem;-->
+<!--            border-radius: 8px;-->
+<!--            margin-bottom: 2rem;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        .detail-item {-->
+<!--            margin-bottom: 0.75rem;-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
+
+<!--        .detail-label {-->
+<!--            color: #666;-->
+<!--            font-weight: 500;-->
+<!--        }-->
+
+<!--        .detail-value {-->
+<!--            color: #1a237e;-->
+<!--            font-weight: 600;-->
+<!--        }-->
+
+<!--        .btn {-->
+<!--            background: #1a237e;-->
+<!--            color: white;-->
+<!--            padding: 1rem 2rem;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            font-size: 1rem;-->
+<!--            font-weight: 600;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--            text-decoration: none;-->
+<!--            display: inline-flex;-->
+<!--            align-items: center;-->
+<!--            gap: 0.5rem;-->
+<!--        }-->
+
+<!--        .btn:hover {-->
+<!--            background: #283593;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);-->
+<!--        }-->
+
+<!--        .redirect-text {-->
+<!--            color: #666;-->
+<!--            margin-top: 1.5rem;-->
+<!--            font-size: 0.9rem;-->
+<!--        }-->
+
+<!--        @keyframes draw {-->
+<!--            from { stroke-dashoffset: 100; }-->
+<!--            to { stroke-dashoffset: 0; }-->
+<!--        }-->
+
+<!--        @keyframes scaleUp {-->
+<!--            0% { transform: scale(0); }-->
+<!--            80% { transform: scale(1.1); }-->
+<!--            100% { transform: scale(1); }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .success-container {-->
+<!--                padding: 2rem 1.5rem;-->
+<!--            }-->
+
+<!--            h1 {-->
+<!--                font-size: 1.75rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="success-container">-->
+<!--    <div class="checkmark-circle">-->
+<!--        <svg class="checkmark" viewBox="0 0 24 24">-->
+<!--            <path d="M20 6L9 17l-5-5" stroke-dasharray="100" stroke-dashoffset="0"/>-->
+<!--        </svg>-->
+<!--    </div>-->
+
+<!--    <h1>Payment Successful!</h1>-->
+<!--    <p class="subheading">Thank you for your purchase</p>-->
+
+<!--    <div class="order-details">-->
+<!--        <div class="detail-item">-->
+<!--            <span class="detail-label">Order ID:</span>-->
+<!--            <span class="detail-value" id="order-id">-</span>-->
+<!--        </div>-->
+<!--        <div class="detail-item">-->
+<!--            <span class="detail-label">Amount Paid:</span>-->
+<!--            <span class="detail-value" id="amount-paid">-</span>-->
+<!--        </div>-->
+<!--        <div class="detail-item">-->
+<!--            <span class="detail-label">Payment Status:</span>-->
+<!--            <span class="detail-value" style="color: #4CAF50;">Completed</span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <a href="index.html" class="btn">-->
+<!--        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">-->
+<!--            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>-->
+<!--        </svg>-->
+<!--        Return Home-->
+<!--    </a>-->
+
+<!--    <p class="redirect-text">You will be redirected to home page in <span id="countdown">5</span> seconds</p>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // Parse URL parameters-->
+<!--    const urlParams = new URLSearchParams(window.location.search);-->
+<!--    const orderId = urlParams.get('order_id');-->
+<!--    const amount = urlParams.get('amount');-->
+
+<!--    // Update order details-->
+<!--    if (orderId) document.getElementById('order-id').textContent = orderId;-->
+<!--    if (amount) {-->
+<!--        const amountInRupees = (amount / 100).toLocaleString('en-IN', {-->
+<!--            style: 'currency',-->
+<!--            currency: 'INR'-->
+<!--        });-->
+<!--        document.getElementById('amount-paid').textContent = amountInRupees;-->
+<!--    }-->
+
+<!--    // Auto-redirect countdown-->
+<!--    let seconds = 5;-->
+<!--    const countdownElement = document.getElementById('countdown');-->
+
+<!--    const countdown = setInterval(() => {-->
+<!--        seconds&#45;&#45;;-->
+<!--        countdownElement.textContent = seconds;-->
+
+<!--        if (seconds <= 0) {-->
+<!--            clearInterval(countdown);-->
+<!--            window.location.href = 'index.html';-->
+<!--        }-->
+<!--    }, 1000);-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,14 +416,14 @@
         </div>
     </div>
 
-    <a href="index.html" class="btn">
+    <a href="#" class="btn" id="otp-btn">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
-        Return Home
+        Proceed to OTP Verification
     </a>
 
-    <p class="redirect-text">You will be redirected to home page in <span id="countdown">5</span> seconds</p>
+    <p class="redirect-text">You will be redirected to OTP verification in <span id="countdown">5</span> seconds</p>
 </div>
 
 <script>
@@ -204,6 +442,10 @@
         document.getElementById('amount-paid').textContent = amountInRupees;
     }
 
+    // Set OTP verification link
+    const otpUrl = `OTPVerification.html?order_id=${orderId}&amount=${amount}`;
+    document.getElementById('otp-btn').setAttribute('href', otpUrl);
+
     // Auto-redirect countdown
     let seconds = 5;
     const countdownElement = document.getElementById('countdown');
@@ -214,7 +456,7 @@
 
         if (seconds <= 0) {
             clearInterval(countdown);
-            window.location.href = 'index.html';
+            window.location.href = otpUrl;
         }
     }, 1000);
 </script>

@@ -3,7 +3,9 @@ package PaymentGateway.PaymentGateway.controller;
 
 import java.util.Map;
 
+import PaymentGateway.PaymentGateway.DTO.OrgRequestDTO;
 import PaymentGateway.PaymentGateway.model.Orders;
+import PaymentGateway.PaymentGateway.service.APIService;
 import PaymentGateway.PaymentGateway.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +15,24 @@ import org.springframework.web.bind.annotation.*;
 
 import com.razorpay.RazorpayException;
 
+
+
+
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:3000") // Allow from this origin
+
+//@CrossOrigin(origins = "http://localhost:5174")
+
 @RestController
 public class OrdersController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private APIService apiService;
+
+
 
     @GetMapping("/orders")
     public String ordersPage() {
@@ -41,7 +55,6 @@ public class OrdersController {
     public String paymentCallback(@RequestParam Map<String, String> response) {
         orderService.updateStatus(response);
         return "success";
-
     }
 
     // ✅ **Webhook Endpoint (Triggered by Razorpay)**
@@ -53,5 +66,12 @@ public class OrdersController {
         orderService.handleWebhook(payload);
 
         return ResponseEntity.ok("Webhook received successfully");
+    }
+
+
+    // ✅ **New API: Trigger Organisation Data Send**
+    @PostMapping("/sendOrganisationData")
+    public void sendOrganisationData(@RequestBody OrgRequestDTO orgRequestDTO) {
+        //return apiService.sendData(orgRequestDTO);
     }
 }

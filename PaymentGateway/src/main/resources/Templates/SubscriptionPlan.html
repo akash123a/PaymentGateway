@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Payment | Order Checkout</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <style>
+        :root {
+          --primary-color: #6366f1;
+          --primary-hover: #4f46e5;
+          --success-color: #22c55e;
+          --error-color: #ef4444;
+          --text-color: #1e293b;
+          --bg-color: #f8fafc;
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Inter", system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+          background: var(--bg-color);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          color: var(--text-color);
+        }
+
+        .payment-container {
+          background: white;
+          padding: 2.5rem;
+          border-radius: 1.5rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 480px;
+          margin: 1rem;
+          transition: transform 0.3s ease;
+        }
+
+        .payment-container:hover {
+          transform: translateY(-2px);
+        }
+
+        .payment-header {
+          text-align: center;
+          margin-bottom: 2.5rem;
+        }
+
+        .payment-header h1 {
+          color: var(--primary-color);
+          font-size: 2rem;
+          margin-bottom: 0.75rem;
+          font-weight: 700;
+          letter-spacing: -0.025em;
+        }
+
+        .payment-header p {
+          color: #64748b;
+          font-size: 0.95rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
+          position: relative;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: #475569;
+          font-size: 0.9rem;
+        }
+
+        input,
+        select {
+          width: 100%;
+          padding: 1rem;
+          border: 2px solid #e2e8f0;
+          border-radius: 0.75rem;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          background: white;
+        }
+
+        input:focus,
+        select:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        input::placeholder {
+          color: #94a3b8;
+        }
+
+        .form-group i {
+          position: absolute;
+          right: 1rem;
+          bottom: 1.1rem;
+          color: #94a3b8;
+          font-size: 1.1rem;
+        }
+
+        #rzp-button1 {
+          background: linear-gradient(
+            135deg,
+            var(--primary-color),
+            var(--primary-hover)
+          );
+          color: white;
+          width: 100%;
+          padding: 1.1rem;
+          border: none;
+          border-radius: 0.75rem;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          margin-top: 1rem;
+        }
+
+        #rzp-button1:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        #rzp-button1:active {
+          transform: translateY(0);
+        }
+
+        .secure-note {
+          text-align: center;
+          margin-top: 2rem;
+          color: #64748b;
+          font-size: 0.85rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 1rem;
+          background: #f1f5f9;
+          border-radius: 0.75rem;
+        }
+
+        .secure-note i {
+          color: var(--success-color);
+          font-size: 1.2rem;
+        }
+
+        .loading {
+          display: none;
+          width: 1.5rem;
+          height: 1.5rem;
+          border: 3px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: white;
+          animation: spin 1s ease infinite;
+        }
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .error-message {
+          color: var(--error-color);
+          font-size: 0.8rem;
+          margin-top: 0.25rem;
+          display: none;
+        }
+
+        @media (max-width: 480px) {
+          .payment-container {
+            padding: 1.5rem;
+            border-radius: 1rem;
+          }
+
+          #rzp-button1 {
+            padding: 1rem;
+          }
+        }
+
+        /* Plan selector styling */
+        .plan-selector {
+          position: relative;
+        }
+
+        .plan-selector::after {
+          content: "▼";
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #94a3b8;
+          pointer-events: none;
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --text-color: #f8fafc;
+            --bg-color: #0f172a;
+          }
+
+          body {
+            background: var(--bg-color);
+          }
+
+          .payment-container {
+            background: #1e293b;
+          }
+
+          input,
+          select {
+            background: #334155;
+            border-color: #475569;
+            color: white;
+          }
+
+          .secure-note {
+            background: #475569;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="payment-container">
+    <div class="payment-header">
+        <h1>Secure Checkout</h1>
+        <p>Choose your plan and complete payment</p>
+    </div>
+
+    <form id="paymentForm">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="John Doe" required />
+            <i class="fas fa-user"></i>
+            <div class="error-message" id="nameError">
+                Please enter your full name
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+                    type="email"
+                    id="email"
+                    placeholder="john@example.com"
+                    required
+            />
+            <i class="fas fa-envelope"></i>
+            <div class="error-message" id="emailError">
+                Please enter a valid email address
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="plan">Select Plan</label>
+            <select id="plan" class="plan-selector">
+                <option value="">Choose a plan...</option>
+                <option value="199">BASIC - ₹199/month</option>
+                <option value="499">PRO - ₹499/month</option>
+                <option value="999">PREMIUM - ₹999/month</option>
+            </select>
+            <div class="error-message" id="planError">Please select a plan</div>
+        </div>
+
+        <button type="submit" id="rzp-button1">
+            <span class="loading"></span>
+            <span class="button-text">Proceed to Secure Payment</span>
+            <i class="fas fa-lock"></i>
+        </button>
+
+        <div class="secure-note">
+            <i class="fas fa-shield-check"></i>
+            <span>256-bit SSL secured payment</span>
+        </div>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById("paymentForm");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const planSelect = document.getElementById("plan");
+    const button = document.getElementById("rzp-button1");
+    const loading = document.querySelector(".loading");
+
+    function showError(element, message) {
+      element.nextElementSibling.style.display = "block";
+      element.nextElementSibling.textContent = message;
+      element.style.borderColor = "var(--error-color)";
+    }
+
+    function clearError(element) {
+      element.nextElementSibling.style.display = "none";
+      element.style.borderColor = "#e2e8f0";
+    }
+
+    function validateForm() {
+      let isValid = true;
+
+      if (!nameInput.value.trim()) {
+        showError(nameInput, "Please enter your full name");
+        isValid = false;
+      } else {
+        clearError(nameInput);
+      }
+
+      if (!emailInput.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+        showError(emailInput, "Please enter a valid email address");
+        isValid = false;
+      } else {
+        clearError(emailInput);
+      }
+
+      if (!planSelect.value) {
+        showError(planSelect, "Please select a plan");
+        isValid = false;
+      } else {
+        clearError(planSelect);
+      }
+
+      return isValid;
+    }
+
+    async function createOrder(amount) {
+      const response = await fetch("http://localhost:8095/createOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          amount: amount,
+        }),
+      });
+      return await response.json();
+    }
+
+    form.onsubmit = async function (e) {
+      e.preventDefault();
+      button.disabled = true;
+      loading.style.display = "block";
+      document.querySelector(".button-text").style.opacity = "0.5";
+
+      if (!validateForm()) {
+        button.disabled = false;
+        loading.style.display = "none";
+        document.querySelector(".button-text").style.opacity = "1";
+        return;
+      }
+
+      try {
+        const amount = planSelect.value;
+        const order = await createOrder(amount);
+
+        var options = {
+          key: "rzp_test_d6BspzoJNG7dXq",
+          amount: order.amount * 100,
+          currency: "INR",
+          name: "Your Business Name",
+          description: "Subscription Payment",
+          order_id: order.razorpayOrderId,
+          callback_url: "http://localhost:8095/paymentCallback",
+          prefill: {
+            name: order.name,
+            email: order.email,
+          },
+          theme: { color: "#6366f1" },
+          handler: function (response) {
+            window.location.href = `success.html?order_id=${order.razorpayOrderId}&amount=${order.amount}`;
+          },
+        };
+
+        new Razorpay(options).open();
+      } catch (error) {
+        alert("Payment failed. Please try again.");
+      } finally {
+        button.disabled = false;
+        loading.style.display = "none";
+        document.querySelector(".button-text").style.opacity = "1";
+      }
+    };
+
+    // Input validation in real-time
+    nameInput.addEventListener("input", () => validateForm());
+    emailInput.addEventListener("input", () => validateForm());
+    planSelect.addEventListener("change", () => validateForm());
+</script>
+</body>
+</html>
+

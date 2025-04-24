@@ -3,7 +3,7 @@ package PaymentGateway.PaymentGateway.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "Payment")
 public class Orders {
 
     @Id

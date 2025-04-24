@@ -96,7 +96,7 @@ public class OrderService {
                 OrgRequestDTO orgRequestDTO  = new OrgRequestDTO();
                     orgRequestDTO.setName(order.getName());
                     orgRequestDTO.setEmail(order.getEmail());
-                         apiService.SendData(orgRequestDTO);
+                         apiService.sendData(orgRequestDTO);
                 if (order != null) {
                     order.setOrderStatus("PAID");
                     order.setPaymentId(paymentId);
